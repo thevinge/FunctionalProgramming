@@ -75,16 +75,16 @@ exception Darn_no_Stack_Element_Multi
 
 let rec run xreg inst stack = match inst with
     | [] -> stack
-    | e::elems -> run xreg elems (match e with 
+    | top::rest -> run xreg rest (match top with 
         | Load -> [xreg] @ stack
         | Push i -> [i] @ stack
         | Add -> (match stack with
             | [] -> []
-            | stackElem::stackElems -> (match stackElems with
+            | stackElem::stackRest -> (match stackRest with
                 | [] -> raise Darn_no_Stack_Element_Add
                 | e1::remainder -> [(stackElem + e1)] @ remainder))
         | Mult -> (match stack with
             | [] -> []
-            | stackElem::stackElems -> (match stackElems with
+            | stackElem::stackRest -> (match stackRest with
                 | [] -> raise Darn_no_Stack_Element_Multi
                 | e2::remainder -> [(stackElem * e2)] @ remainder))) 
