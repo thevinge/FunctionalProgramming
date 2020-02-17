@@ -1,3 +1,4 @@
+open QCheck
 
 (* a datatype of arithmetic expressions *)
 type aexp =
@@ -88,3 +89,17 @@ let rec run xreg inst stack = match inst with
             | stackElem::stackRest -> (match stackRest with
                 | [] -> raise Darn_no_Stack_Element_Multi
                 | e2::remainder -> [(stackElem * e2)] @ remainder))) 
+
+
+(** My own generator **)
+let mygen = Gen.frequency [
+                        (20,int.gen); 
+                        (20,small_signed_int.gen); 
+                        (5,Gen.return (Int64.to_int(Int64.max_int)));
+                        (5,Gen.return (Int64.to_int(Int64.min_int)));
+                        (5, Gen.return (-1));
+                        (5,Gen.return (0));
+                        (5,Gen.return (1));
+                        ];;
+
+
