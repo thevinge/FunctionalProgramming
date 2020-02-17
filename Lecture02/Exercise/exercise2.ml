@@ -88,3 +88,8 @@ if n = accum then num1 + num2 else
 fib2 n (num1 + num2) num1 (accum+1)
 **)
 
+(** Dictionary **)
+
+let add_dict d k v = fun k' -> if k = k' then v else d k';;
+let empty_dict k = 0;;
+let find_dict d k = d k
