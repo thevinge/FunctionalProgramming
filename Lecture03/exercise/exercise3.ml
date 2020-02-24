@@ -102,4 +102,10 @@ let mygen = Gen.frequency [
                         (5,Gen.return (1));
                         ];;
 
+(* Exercise 4*)
+let dicegen = Gen.pair (Gen.map (fun i -> i + 1) (Gen.int_bound 5)) (Gen.map (fun i -> i + 1) (Gen.int_bound 5));;
 
+
+(* Exercise 5*)
+let my_int_of_string str = try Some (int_of_string str) with
+  | Failure _ -> None
